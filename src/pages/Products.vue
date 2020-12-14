@@ -43,9 +43,10 @@
                         <p class="card-text">{{ product.description }}</p>
                     </div>
                     <div class="card-footer card-footer-custom">
-                        <router-link :to="{name: 'cart'}">
+                        <a href="" class="card-footer card-footer-custom"
+                        @click.prevent="addProductInCart(product)">
                             Adicionar no Carrinho <i class="fas fa-cart-plus"></i>
-                        </router-link>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -58,7 +59,7 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex'
+    import { mapState, mapActions, mapMutations } from 'vuex'
 
     export default {
         created() {
@@ -83,6 +84,7 @@
         computed: {
             ...mapState({
                 company: state => state.companies.companySelected,
+                productsCart: state => state.cart.products,
             })
         },
 
@@ -91,6 +93,35 @@
                 'getCategoriesByCompany',
                 'getProductsByCompany'
             ]),
+
+            ...mapMutations({
+                addProductCart: 'ADD_PRODUCT_CART',
+                incrementQuantity: 'INCREMENT_QUANTITY'
+            }),
+
+            addProductInCart(product) {
+                let inCart = this.isProductInCart(product);
+
+                if(inCart){
+                    this.incrementQuantity(product)
+                } else {
+                    this.addProductCart(product);
+                }
+
+                this.$vToastify.success('Produto adicionado com sucesso', 'Sucesso');
+            },
+
+            isProductInCart(product) {
+                let inCart = false;
+
+                this.productsCart.map((cartProduct, index) => {
+                    if(cartProduct.productUuid === product.uuid){
+                        inCart = true;
+                    }
+                });
+
+                return inCart;
+            },
 
             loadProducts() {
                 const params = {
