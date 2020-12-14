@@ -14,7 +14,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{name: 'login'}" class="nav-link">Login</router-link>
+                            <a href="#" v-if="me.name" class="nav-link">Olá, {{ me.name }}</a>
+                            <router-link v-else :to="{name: 'login'}" class="nav-link">Login</router-link>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +30,8 @@
     export default {
         computed: {
             ...mapState({
-                productsCart: state => state.cart.products
+                productsCart: state => state.cart.products,
+                me: state => state.auth.me
             })
         }
     }
