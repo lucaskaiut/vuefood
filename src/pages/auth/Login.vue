@@ -96,7 +96,7 @@
                     .catch(error => {
                         const errorResponse = error.response;
 
-                        if(errorResponse.status === 422){
+                        if((errorResponse.status === 404 && errorResponse.data.message === 'Invalid Credentials') || errorResponse.status === 422){
                             this.errors = Object.assign(this.errors, errorResponse.data.errors);
 
                             this.$vToastify.error('Dados inválidos', 'Erro');
