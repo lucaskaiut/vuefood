@@ -5,15 +5,15 @@ export default {
     },
 
     mutations: {
-        ADD_PRODUCT(state, product) {
+        ADD_PRODUCT_CART(state, product) {
             state.products.push({
                 quantity: 1,
                 productUuid: product.uuid,
                 product,
-            })
+            });
         },
 
-        REMOVE_PROUDCT(state, product) {
+        REMOVE_PRODUCT(state, product) {
             state.products = state.products.filter((cartProduct, index) => {
                 return cartProduct.uuid !== product.uuid
             })
@@ -22,7 +22,7 @@ export default {
 
         INCREMENT_QUANTITY(state, product) {
             state.products = state.products.map((cartProduct, index) => {
-                if(cartProduct.uuid === product.uuid){
+                if(cartProduct.productUuid === product.uuid){
                     state.products[index].quantity++
                 }
 

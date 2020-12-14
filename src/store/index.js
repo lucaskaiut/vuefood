@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import createPersistedState from "vuex-persistedstate";
 import { state, mutations } from './default'
 import companies from './modules/companies'
 import cart from './modules/cart'
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
         companies,
         cart
     },
+    plugins: [createPersistedState()],
     state,
     mutations
 });
