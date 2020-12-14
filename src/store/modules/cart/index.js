@@ -15,7 +15,7 @@ export default {
 
         REMOVE_PRODUCT(state, product) {
             state.products = state.products.filter((cartProduct, index) => {
-                return cartProduct.uuid !== product.uuid
+                return cartProduct.productUuid !== product.uuid
             })
         },
 
@@ -32,13 +32,14 @@ export default {
 
         DECREMENT_QUANTITY(state, product) {
             state.products = state.products.filter((cartProduct, index) => {
-                if(cartProduct.uuid === product.uuid){
-                    state.products[index].quantity--
+                if(cartProduct.productUuid === product.uuid){
+                    if(state.products[index].quantity > 1){
+                        state.products[index].quantity--
+                    }
                 }
 
-                if(state.products[index].quantity > 0){
-                    return state.products[index]
-                }
+                return state.products[index]
+
             })
         },
 
