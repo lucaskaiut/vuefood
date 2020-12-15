@@ -78,6 +78,7 @@ export default {
             })
             .then(response => {
                 commit('LOGOUT');
+
                 localStorage.removeItem(TOKEN_NAME);
             })
             .catch(error => localStorage.removeItem(TOKEN_NAME))

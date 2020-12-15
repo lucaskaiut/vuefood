@@ -6,6 +6,7 @@ import { state, mutations } from './default'
 import companies from './modules/companies'
 import cart from './modules/cart'
 import auth from './modules/auth'
+import orders from './modules/orders'
 
 const persistedData = createPersistedState({
     paths: ['cart', 'companies']
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
     modules: {
         companies,
         cart,
-        auth
+        auth,
+        orders,
     },
     plugins: [persistedData],
     state,

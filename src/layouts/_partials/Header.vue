@@ -14,7 +14,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <a href="#" v-if="me.name" class="nav-link">Olá, {{ me.name }} </a>
+                            <router-link :to="{name: 'my.orders'}" v-if="me.name" class="nav-link">Olá, {{ me.name }} </router-link>
                             <router-link v-else :to="{name: 'login'}" class="nav-link">Login</router-link>
                         </li>
                         <li class="nav-item">
