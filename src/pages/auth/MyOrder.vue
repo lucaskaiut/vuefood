@@ -67,7 +67,7 @@
                         :shadow-color="'#ffff00'"
                         :hover-color="'#dddd00'"
                         :max="5"
-                        readonly="true"
+                        :readonly="true"
                         :value="evaluation.stars"
                         :char="'★'"
                 />
