@@ -7,8 +7,8 @@
             <div class="col-sm-6">
                 <ul class="p-0">
                     <li><b>Número:</b> {{ identify }}</li>
-                    <li><b>Total:</b> R$ {{ order.total }}</li>
-                    <li><b>Data:</b> {{ order.date_added }}</li>
+                    <li><b>Total:</b> R$ {{ order.total | formatprice }}</li>
+                    <li><b>Data:</b> {{ order.date_added | formatdate }}</li>
                     <li><b>Status:</b> <span class="badge bg-success text-light p-2">{{ order.status }}</span></li>
                 </ul>
             </div>
@@ -44,7 +44,7 @@
                     <a href="#"><img class="card-img-top" :src="product.image" :alt="product.name"></a>
                     <div class="details-card-body">
                         <h5>{{ product.name }}</h5>
-                        <p><b>R${{ product.price }}</b></p>
+                        <p><b>R${{ product.price | formatprice }}</b></p>
                     </div>
                 </div>
             </div>

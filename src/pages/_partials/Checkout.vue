@@ -6,7 +6,7 @@
             <div class="px-md-5 my-4">
                 <div class="col-12" v-if="me.name !== ''">
                     <p><strong>Total de Produtos:</strong> {{ products.length }}</p>
-                    <p><strong>Total:</strong> R${{ cartTotal }}</p>
+                    <p><strong>Total:</strong> R${{ cartTotal | formatprice }}</p>
                     <div class="form-group">
                         <label>Comentário</label>
                         <textarea name="comment" cols="30" rows="3" class="form-control" placeholder="Ex: Sem cebola, molho adicional, etc." v-model="comment"></textarea>
@@ -19,7 +19,7 @@
                 <div v-else class="row">
                     <div class="col-6">
                         <p><strong>Total de Produtos:</strong> {{ products.length }}</p>
-                        <p><strong>Total:</strong> R${{ cartTotal }}</p>
+                        <p><strong>Total:</strong> R${{ cartTotal | formatprice }}</p>
                         <div class="form-group">
                             <label>Comentário</label>
                             <textarea name="comment" cols="30" rows="3" class="form-control" placeholder="Ex: Sem cebola, molho adicional, etc." v-model="comment"></textarea>
