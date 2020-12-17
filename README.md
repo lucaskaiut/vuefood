@@ -15,5 +15,5 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Additional Information
+This project needs an api running. You can find the API [here](https://github.com/lucaskaiut/larafood-api)
