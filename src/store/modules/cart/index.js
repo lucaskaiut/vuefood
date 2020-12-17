@@ -8,21 +8,21 @@ export default {
         ADD_PRODUCT_CART(state, product) {
             state.products.push({
                 quantity: 1,
-                productUuid: product.uuid,
+                identify: product.uuid,
                 product,
             });
         },
 
         REMOVE_PRODUCT(state, product) {
             state.products = state.products.filter((cartProduct, index) => {
-                return cartProduct.productUuid !== product.uuid
+                return cartProduct.identify !== product.uuid
             })
         },
 
 
         INCREMENT_QUANTITY(state, product) {
             state.products = state.products.map((cartProduct, index) => {
-                if(cartProduct.productUuid === product.uuid){
+                if(cartProduct.identify === product.uuid){
                     state.products[index].quantity++
                 }
 
@@ -32,7 +32,7 @@ export default {
 
         DECREMENT_QUANTITY(state, product) {
             state.products = state.products.filter((cartProduct, index) => {
-                if(cartProduct.productUuid === product.uuid){
+                if(cartProduct.identify === product.uuid){
                     if(state.products[index].quantity > 1){
                         state.products[index].quantity--
                     }

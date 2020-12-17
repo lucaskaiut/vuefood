@@ -115,7 +115,7 @@
                 let inCart = false;
 
                 this.productsCart.map((cartProduct, index) => {
-                    if(cartProduct.productUuid === product.uuid){
+                    if(cartProduct.identify === product.uuid){
                         inCart = true;
                     }
                 });

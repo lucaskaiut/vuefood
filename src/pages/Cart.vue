@@ -47,7 +47,7 @@
                 </div>
             </div>
             <!-- end card body -->
-            <a href="" class="cart-finalizar">Finalizar</a>
+                <Checkout />
         </div>
         <!-- cart-->
     </div>
@@ -55,6 +55,7 @@
 
 <script>
     import { mapState, mapMutations } from 'vuex'
+    import Checkout from "./_partials/Checkout";
 
     export default {
         mounted() {
@@ -63,7 +64,7 @@
 
         computed: {
             ...mapState({
-                products: state => state.cart.products
+                products: state => state.cart.products,
             }),
 
             cartTotal() {
@@ -124,6 +125,10 @@
                     this.$vToastify.error('Carrinho vazio', 'Seu carrinho está vazio!');
                 }
             }
+        },
+
+        components: {
+            Checkout
         }
     }
 </script>

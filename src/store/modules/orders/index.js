@@ -55,6 +55,35 @@ export default {
                     'Authorization': `Bearer ${token}`
                 }
             });
-        }
+        },
+
+        createOrder( {commit}, params) {
+            return new Promise((resolve, reject) => {
+                axios.post('order/create', params)
+                    .then(response => {
+                        commit('CLEAR_CART');
+
+                        resolve(response.data);
+                    }).catch(response => reject(response.error));
+            });
+        },
+
+        createAuthOrder( {commit}, params) {
+            return new Promise((resolve, reject) => {
+                const token = localStorage.getItem(TOKEN_NAME);
+                if(!token) reject();
+
+                axios.post('auth/order/create', params, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(response => {
+                    commit('CLEAR_CART');
+
+                    resolve(response.data);
+                }).catch(response => reject(response.error))
+            });
+        },
+
     },
 }
