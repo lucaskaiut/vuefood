@@ -23,7 +23,7 @@
                             <h5 class="h6">{{ product.product.description }}</h5>
                             <div class="d-flex py-4 justify-content-between align-items-center">
                                 <div class="col-10 d-flex align-items-center p-0 ">
-                                    <h6><strong>R$ {{ product.product.price }} <span class="text-muted">x</span></strong></h6>
+                                    <h6><strong>R$ {{ product.product.price | formatprice }} <span class="text-muted">x</span></strong></h6>
                                     <div class="quantity ml-4">
                                         <input type="button" value="+" class="plus" @click.prevent="increment(product.product)">
                                         <input type="number" step="1" max="99" min="1" :value="product.quantity" title="Qty" class="qty"
@@ -43,11 +43,11 @@
                     <hr>
                 </div>
                 <div class="cart-price text-red">
-                    Preço Total: <b>R$ {{ this.cartTotal }}</b>
+                    Preço Total: <b>R$ {{ this.cartTotal | formatprice }}</b>
                 </div>
             </div>
             <!-- end card body -->
-            <a href="" class="cart-finalizar">Finalizar</a>
+                <Checkout />
         </div>
         <!-- cart-->
     </div>
@@ -55,6 +55,7 @@
 
 <script>
     import { mapState, mapMutations } from 'vuex'
+    import Checkout from "./_partials/Checkout";
 
     export default {
         mounted() {
@@ -63,7 +64,7 @@
 
         computed: {
             ...mapState({
-                products: state => state.cart.products
+                products: state => state.cart.products,
             }),
 
             cartTotal() {
@@ -124,6 +125,10 @@
                     this.$vToastify.error('Carrinho vazio', 'Seu carrinho está vazio!');
                 }
             }
+        },
+
+        components: {
+            Checkout
         }
     }
 </script>

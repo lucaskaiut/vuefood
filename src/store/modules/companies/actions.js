@@ -9,6 +9,13 @@ const actions = {
             .then(response => commit('SET_COMPANIES', response.data))
             .finally(() => commit('SET_PRELOADER', false));
     },
+
+    getCompanyByToken({ commit }, company_token){
+        commit('SET_PRELOADER', true);
+
+        return axios.get(``)
+    },
+
     getCategoriesByCompany ({ commit }, company_token) {
         commit('SET_PRELOADER', true);
 

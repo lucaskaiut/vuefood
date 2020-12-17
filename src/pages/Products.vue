@@ -39,7 +39,7 @@
                         <h4 class="card-title">
                             <a href="#">{{ product.name }}</a>
                         </h4>
-                        <h5>{{ product.price }}</h5>
+                        <h5>R${{ product.price | formatprice }}</h5>
                         <p class="card-text">{{ product.description }}</p>
                     </div>
                     <div class="card-footer card-footer-custom">
@@ -115,7 +115,7 @@
                 let inCart = false;
 
                 this.productsCart.map((cartProduct, index) => {
-                    if(cartProduct.productUuid === product.uuid){
+                    if(cartProduct.identify === product.uuid){
                         inCart = true;
                     }
                 });
