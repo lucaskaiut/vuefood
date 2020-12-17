@@ -43,6 +43,18 @@ export default {
             commit('SET_TEXT_PRELOADER', 'Carregando os dados do pedido, por favor aguarde');
 
             return axios.get(`order?identify=${identify}`).finally(() => commit('SET_PRELOADER', false))
+        },
+
+        orderEvaluation({ comment }, params){
+            const token = localStorage.getItem(TOKEN_NAME);
+
+            if(!token) Promise.reject();
+
+            return axios.post('order/evaluation/create', params, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
         }
     },
 }
