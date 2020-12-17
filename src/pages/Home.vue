@@ -10,7 +10,7 @@
 
                     <div class="col-lg-4 col-md-4 col-6 mb-4" v-for="(company, index) in companies.data" :key="index">
                         <div class="restaurant-card">
-                            <router-link class="logo" :to="{name: 'products'}">
+                            <a class="logo" href="#" @click.prevent="goStoreCompany(company)">
                                 <img v-if="company.logo"
                                      class="card-img-top"
                                      :src="company.logo"
@@ -19,12 +19,12 @@
                                      class="card-img-top"
                                      src="@/assets/imgs/vue-food.png"
                                      :alt="company.name">
-                            </router-link>
+                            </a>
                             <div class="restaurant-card-body">
                                 <h3>
-                                    <router-link :to="{name: 'products'}">
+                                    <a href="#" @click.prevent="goStoreCompany(company)">
                                         {{ company.name }}
-                                    </router-link>
+                                    </a>
                                 </h3>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from 'vuex'
+    import { mapActions, mapState, mapMutations } from 'vuex'
     export default {
         mounted() {
             this.getCompanies().catch(response => this.$vToastify.error("Algo deu errado, tente novamente mais tarde"))
@@ -56,8 +56,19 @@
 
         methods: {
             ...mapActions([
-                'getCompanies'
-            ])
+                'getCompanies',
+            ]),
+
+            ...mapMutations({
+                setCompany: 'SET_COMPANY_SELECTED',
+            }),
+
+            goStoreCompany(company){
+
+                this.setCompany(company);
+
+                this.$router.push({ name: 'products', params: { companyUrl: company.url } })
+            }
         }
     }
 </script>
