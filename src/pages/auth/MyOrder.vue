@@ -51,6 +51,57 @@
 
         </div>
         <!-- products order -->
+
+        <!-- Evaluations -->
+        <button class="btn btn-outline-success" @click.prevent="openModal('order-evaluation')" v-if="order.evaluations.length === 0">
+            Avaliar o pedido
+        </button>
+
+        <div class="col-12" v-if="order.evaluations.length > 0">
+            <h3>Avaliações</h3>
+            <div v-for="(evaluation, index) in order.evaluations" :key="index">
+                <vue-stars
+                        name="evaluation"
+                        :active-color="'#ffdd00'"
+                        :inactive-color="'#999999'"
+                        :shadow-color="'#ffff00'"
+                        :hover-color="'#dddd00'"
+                        :max="5"
+                        readonly="true"
+                        :value="evaluation.stars"
+                        :char="'★'"
+                />
+                <p>{{ evaluation.comment }}</p>
+                <hr/>
+            </div>
+        </div>
+
+        <modal name="order-evaluation" :height="350" draggable>
+            <div class="px-md-5 my-4">
+                <h1>Avaliar o Pedido {{ identify }}</h1>
+                <strong>Nota: </strong>
+                <vue-stars
+                        name="evaluation"
+                        :active-color="'#ffdd00'"
+                        :inactive-color="'#999999'"
+                        :shadow-color="'#ffff00'"
+                        :hover-color="'#dddd00'"
+                        :max="5"
+                        :char="'★'"
+                        v-model="evaluation.stars"
+                />
+                <div class="form-group">
+                    <label>Comentário</label>
+                    <textarea class="form-control" name="comment" cols="30" rows="3" placeholder="Comentário (opcional)" v-model="evaluation.comment"></textarea>
+                </div>
+            <button class="btn btn-outline-success float-right"
+                    @click.prevent="sendEvaluation"
+                    :disabled="loadEvaluation">
+                <i v-if="loadEvaluation" class="fas fa-spinner fa-spin"></i>
+                <i v-else class="far fa-save"></i>
+            </button>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -114,14 +165,46 @@
                     },
                     products: [],
                     evaluations: [],
-                }
+                },
+                evaluation: {
+                    stars: 1,
+                    comment: ''
+                },
+                loadEvaluation: false
             }
         },
 
         methods: {
             ...mapActions([
-                'getOrderByIdentify'
-            ])
+                'getOrderByIdentify',
+                'orderEvaluation'
+            ]),
+
+            openModal(modalName){
+                this.$modal.show(modalName);
+            },
+
+            closeModal(modalName){
+                this.$modal.hide(modalName)
+            },
+
+            sendEvaluation(){
+                this.loadEvaluation = true;
+
+                const params = {
+                    identify: this.identify,
+                    ...this.evaluation
+                };
+
+                this.orderEvaluation(params)
+                    .then(response => {
+                        this.$vToastify.success('Avaliação enviada com sucesso', 'Parabéns!');
+                        this.order.evaluations.push(response.data.data);
+                        this.closeModal('order-evaluation')
+                    })
+                    .catch(error => this.$vToastify.error('Erro ao enviar os dados. Tente novamente mais tarde.', 'Erro'))
+                    .finally(() => this.loadEvaluation = false)
+            }
         }
     }
 </script>
